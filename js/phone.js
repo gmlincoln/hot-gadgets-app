@@ -41,7 +41,7 @@ function displayPhones(phones, isShowAll) {
         <h2 class="card-title justify-center">${phone.phone_name}</h2>
         <p></p>
         <div class="card-actions justify-center">
-          <button class="btn btn-primary">Show Details</button>
+          <button onclick="showDetailsHandler('${phone.slug}')" class="btn btn-primary">Show Details</button>
         </div>
       </div>
         `;
@@ -51,6 +51,57 @@ function displayPhones(phones, isShowAll) {
   });
 }
 
+// Show Details Button Handler
+
+const showDetailsHandler = async (id) => {
+  const res = await fetch(`https://openapi.programming-hero.com/api/phone/${id}`);
+  const data = await res.json();
+  const phoneData = data.data;
+  showDetails(phoneData);
+}
+
+const showDetails = phoneData => {
+  show_phone_details.showModal();
+  console.log(phoneData);
+  const showDataForm = document.getElementById('showDetails-form');
+  showDataForm.innerHTML = `
+      <figure class="grid justify-center">
+      <img src="${phoneData.image}" alt="Shoes" />
+      </figure>
+      <div class="card-body">
+        <h2 class="card-title">${phoneData.name}</h2>
+        <p class="text-[#403F3F] font-bold">
+          Storage: <span class="text-[#706F6F] font-medium">${phoneData.mainFeatures.storage}</span>
+        </p>
+        <p class="text-[#403F3F] font-bold">
+          Display Size: <span class="text-[#706F6F] font-medium">${phoneData.mainFeatures.displaySize}</span>
+        </p>
+        <p class="text-[#403F3F] font-bold">
+          Chipset: <span class="text-[#706F6F] font-medium">${phoneData.mainFeatures?.chipSet}</span>
+        </p>
+        <p class="text-[#403F3F] font-bold">
+          Memory: <span class="text-[#706F6F] font-medium">${phoneData.mainFeatures?.memory}</span>
+        </p>
+        <p class="text-[#403F3F] font-bold">
+          Slug: <span class="text-[#706F6F] font-medium">${phoneData?.slug}</span>
+        </p>
+        <p class="text-[#403F3F] font-bold">
+          Release data: <span class="text-[#706F6F] font-medium">${phoneData?.releaseDate}</span>
+        </p>
+        <p class="text-[#403F3F] font-bold">
+          Brand: <span class="text-[#706F6F] font-medium">${phoneData.brand}</span>
+        </p>
+        <p class="text-[#403F3F] font-bold">
+          Sensors: <span class="text-[#706F6F] font-medium">${phoneData.mainFeatures.sensors}</span>
+        </p>
+        <div class="modal-action justify-center">
+          <button class="btn btn-primary">Close</button>
+        </div>
+      </div>
+      
+  `;
+
+}
 
 // Search Phone
 const searchPhone = (isShowAll) => {
