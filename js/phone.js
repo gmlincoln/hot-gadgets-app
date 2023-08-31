@@ -1,29 +1,29 @@
-const loadPhones = async (searchPhones, isShow) => {
+const loadPhones = async (searchPhones, isShowAll) => {
   const res = await fetch(`https://openapi.programming-hero.com/api/phones?search=${searchPhones}`);
   const data = await res.json();
   const phones = data.data;
-  displayPhones(phones, isShow);
+  displayPhones(phones, isShowAll);
 }
 
-function displayPhones(phones, isShow) {
+function displayPhones(phones, isShowAll) {
   const phoneContainer = document.getElementById('phone-container');
   phoneContainer.innerHTML = '';
 
   // Display Show All Button
   const showAllBtn = document.getElementById('showAll-btn');
-  if (phones.length > 12) {
+  if (phones.length > 12 && !isShowAll) {
     showAllBtn.classList.remove('hidden');
   } else {
     showAllBtn.classList.add('hidden');
   }
 
   // Display Maximum 12 Phones but after click show all button then show all phones 
-  phones = phones.slice(0, 12);
-  // if (!isShow) {
-  //   
-  // } else {
-  //   phones;
-  // }
+
+  if (!isShowAll) {
+    phones = phones.slice(0, 12);
+  } else {
+    phones;
+  }
 
   // Display Phones
   phones.forEach(phone => {
@@ -53,18 +53,16 @@ function displayPhones(phones, isShow) {
 
 
 // Search Phone
-const searchPhone = () => {
+const searchPhone = (isShowAll) => {
   loadingSpinner(true);
   const searchField = document.getElementById('search-field');
   const searchFieldValue = searchField.value;
-  loadPhones(searchFieldValue);
+  loadPhones(searchFieldValue, isShowAll);
 }
 
 // Show All Phones
 document.getElementById('showAll-btn').addEventListener('click', function () {
-  const isShow = true;
-  // loadPhones(isShow);
-  console.log(isShow);
+  searchPhone(true);
 });
 
 // Display Loading Spinner 
