@@ -18,7 +18,7 @@
     <!-- Main Section -->
     <main class="max-w-7xl mx-auto mt-10">
       <!-- Search Section -->
-      <section class="bg-gray-300 p-5 rounded-md">
+      <section class="bg-gray-400 p-5 rounded-md">
         <input
           id="search-field"
           type="text"
@@ -28,16 +28,35 @@
         <button
           onclick="searchPhone()"
           id="search-btn"
-          class="btn btn-accent text-white font-medium"
+          class="btn btn-accent text-white font-medium hover:font-bold"
         >
           Search
         </button>
       </section>
-      <section class="mt-10">
+      <section class="mt-10 mb-10">
+        <!-- Spinner Loading Section -->
+        <div class="text-center">
+          <span
+            id="loading-spinner"
+            class="loading loading-spinner text-accent loading-lg mt-40 hidden"
+          ></span>
+        </div>
+        <!-- Display Phone -->
         <div
           id="phone-container"
           class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 space-y-10"
         ></div>
+      </section>
+      <!-- Show All Section -->
+      <section>
+        <div class="text-center">
+          <button
+            id="showAll-btn"
+            class="btn btn-primary capitalize text-white font-medium hidden"
+          >
+            Show All
+          </button>
+        </div>
       </section>
     </main>
     <!-- Footer Section -->
