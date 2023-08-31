@@ -9,6 +9,17 @@ function displayPhones(phones, isShowAll) {
   const phoneContainer = document.getElementById('phone-container');
   phoneContainer.innerHTML = '';
 
+  // Show A comment if there is noting found
+  if (phones.length === 0) {
+    loadingSpinner(false);
+    const notFoundText = document.createElement('div');
+    notFoundText.classList = 'bg-base-100 p-5 text-5xl text-center w-[100vw]';
+    notFoundText.innerHTML =
+      `
+      <h3 class="text-red-400">Not Found!!</h3>
+    `;
+    phoneContainer.appendChild(notFoundText);
+  }
   // Display Show All Button
   const showAllBtn = document.getElementById('showAll-btn');
   if (phones.length > 12 && !isShowAll) {
@@ -45,7 +56,6 @@ function displayPhones(phones, isShowAll) {
         </div>
       </div>
         `;
-
     phoneContainer.appendChild(phoneCard);
     loadingSpinner(false);
   });
@@ -104,10 +114,16 @@ const showDetails = phoneData => {
 
 // Search Phone
 const searchPhone = (isShowAll) => {
-  loadingSpinner(true);
   const searchField = document.getElementById('search-field');
   const searchFieldValue = searchField.value;
-  loadPhones(searchFieldValue, isShowAll);
+  if (searchFieldValue === '') {
+    alert('Write Something');
+    loadingSpinner(false);
+  }
+  else {
+    loadingSpinner(true);
+    loadPhones(searchFieldValue, isShowAll);
+  }
 }
 
 // Show All Phones
