@@ -62,7 +62,6 @@ const showDetailsHandler = async (id) => {
 
 const showDetails = phoneData => {
   show_phone_details.showModal();
-  console.log(phoneData);
   const showDataForm = document.getElementById('showDetails-form');
   showDataForm.innerHTML = `
       <figure class="grid justify-center">
